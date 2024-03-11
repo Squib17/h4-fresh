@@ -1,26 +1,34 @@
-<h1><%= @place["name"] %></h1>
+<div class="container"> 
+  <h1><%= @place["name"] %></h1>
 
-<p>
-  <a href="/entries/new?place_id=<%= @place["id"]%>" class = "btn btn-primary">New Post</a>
-</p>
+  <p>
+    <a href="/entries/new?place_id=<%= @place["id"]%>" class = "btn btn-primary">New Post</a>
+  </p>
 
 
 
-<div class ="row" >
-  <% for entry in @entries %>
-    <div class = "col-sm-6 col-md-3">
-      <h2><%= entry["title"] %></h2>
-      <h6><%= entry["occurred_on"] %></h6>
-      <% if entry.uploaded_image.attached? %>
-        <img src="<%= url_for(entry.uploaded_image) %>" class="img-fluid">
-      <% else %>
-        <img src="<%= entry["image"] %>" class="img-fluid">
+  <div class ="row" >
+    <% for entry in @entries %>
+      <div class = "col-sm-6 col-md-4 col-lg-3 mb-4">
+      <div class="card h-100"> <!--using the card feature to make it look nice -->
+      <div class ="card-body">        
+        <h3 class="card-title"><%= entry["title"] %></h3>
+        <h6 class="card-subtitle mb-2 text-muted"><%= entry["occurred_on"] %></h6>
+        <% if entry.uploaded_image.attached? %>
+          <img src="<%= url_for(entry.uploaded_image) %>" class="card-img-top img-fluid">
+        <% else %>
+          <img src="<%= entry["image"] %>" class="card-img-top img-fluid">
+        <% end %>
+        <p class="card-text"><%= entry["description"] %></p>
+      </div>
+      </div>
+      </div>
       <% end %>
-      <p><%= entry["description"] %></p>
-    </div>
-  <% end %>
+  </div>
+
+  <p>
+    <a href="/places">Back to All Places</a>
+  </p>
 </div>
 
-<p>
-  <a href="/places">Back to All Places</a>
-</p>
+
